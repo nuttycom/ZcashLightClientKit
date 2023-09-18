@@ -141,7 +141,7 @@ class TransactionSQLDAO: TransactionRepository {
 
     func getTransactionOutputs(for rawID: Data) async throws -> [ZcashTransaction.Output] {
         let query = self.txOutputsView
-            .filter(ZcashTransaction.Output.Column.rawID == rawID)
+            .filter(ZcashTransaction.Output.Column.rawID == Blob(bytes: rawID.bytes))
 
         return try execute(query) { try ZcashTransaction.Output(row: $0) }
     }
