@@ -87,6 +87,13 @@ class TransactionRepositoryTests: XCTestCase {
         XCTAssertEqual(transactions[2].minedHeight, 663956)
     }
 
+    func testGetTransactionOutputs() async throws {
+        let rawID = Data(fromHexEncodedString: "08cb5838ffd2c18ce15e7e8c50174940cd9526fff37601986f5480b7ca07e534")!
+
+        let outputs = try await self.transactionRepository.getTransactionOutputs(for: id)
+        XCTAssertEqual(outputs.count, 2)
+    }
+
     func testFindMemoForTransaction() async throws {
         let rawID = Data(fromHexEncodedString: "08cb5838ffd2c18ce15e7e8c50174940cd9526fff37601986f5480b7ca07e534")!
         let transaction = ZcashTransaction.Overview(
